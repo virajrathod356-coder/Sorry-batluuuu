@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>I'm Sorry 🌸</title>
+<style>
+  :root{
+    --blush:#ffe4ec;
+    --petal:#ffb6c9;
+    --rose:#ff6f91;
+    --deep-rose:#e0466e;
+    --hot-rose:#ff4f81;
+    --plum:#7a3b52;
+    --cream:#fff8fa;
+    --glass:rgba(255,255,255,0.55);
+    --glass-strong:rgba(255,255,255,0.78);
+    --shadow:0 10px 34px rgba(224,70,110,0.20);
+    --gloss: linear-gradient(180deg, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.15) 40%, rgba(255,255,255,0) 60%);
+  }
+
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    margin:0;
+    min-height:100vh;
+    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,sans-serif;
+    background:
+      radial-gradient(circle at 15% 8%, #ffd6e3 0%, transparent 45%),
+      radial-gradient(circle at 88% 18%, #ffc9dc 0%, transparent 42%),
+      radial-gradient(circle at 50% 95%, #ffb8cf 0%, transparent 55%),
+      radial-gradient(circle at 30% 60%, #ffe6ee 0%, transparent 50%),
+      linear-gradient(180deg,#fff3f7 0%, #ffe0eb 55%, #ffd3e2 100%);
+    color:var(--plum);
+    overflow-x:hidden;
+    position:relative;
+    padding-bottom:90px;
+  }
+
+  /* ---------- floating decorative flowers (layered parallax) ---------- */
+  .petal{
+    position:fixed;
+    top:-40px;
+    font-size:22px;
+    opacity:0.85;
+    pointer-events:none;
+    animation:fall linear infinite;
+    z-index:0;
+    user-select:none;
+    filter:drop-shadow(0 2px 4px rgba(224,70,110,0.25));
+  }
+  @keyframes fall{
+    0%{transform:translateY(-5vh) rotate(0deg) translateX(0px);}
+    50%{transform:translateY(50vh) rotate(180deg) translateX(18px);}
+    100%{transform:translateY(105vh) rotate(360deg) translateX(-10px);}
+  }
+
+  .sparkle-layer{
+    position:fixed;inset:0;pointer-events:none;z-index:0;
+  }
+  .sparkle{
+    position:absolute;
+    font-size:12px;
+    opacity:0;
+    animation:twinkle 2.4s ease-in-out infinite;
+  }
+  @keyframes twinkle{
+    0%,100%{opacity:0;transform:scale(0.6);}
+    50%{opacity:0.9;transform:scale(1.1);}
+  }
+
+  .app{
+    max-width:480px;
+    margin:0 auto;
+    position:relative;
+    z-index:1;
+    padding:26px 16px 10px;
+  }
+
+  .statusbar{
+    text-align:center;
+    font-size:13px;
+    letter-spacing:0.5px;
+    color:var(--deep-rose);
+    opacity:0.75;
+    margin-bottom:8px;
+    font-weight:600;
+  }
+
+  /* progress dots - iOS page indicator style, fills as user scrolls/interacts */
+  .progress-dots{
+    display:flex;
+    justify-content:center;
+    gap:6px;
+    margin-bottom:14px;
+  }
+  .progress-dots span{
+    width:7px;height:7px;border-radius:50%;
+    background:rgba(224,70,110,0.25);
+    transition:background 0.3s ease, transform 0.3s ease;
+  }
+  .progress-dots span.active{
+    background:var(--deep-rose);
+    transform:scale(1.3);
+  }
+
+  /* ---------- glossy card base ---------- */
+  .glass-card{
+    background:var(--glass-strong);
+    backdrop-filter:blur(22px) saturate(160%);
+    -webkit-backdrop-filter:blur(22px) saturate(160%);
+    border-radius:30px;
+    box-shadow:var(--shadow), inset 0 1px 0 rgba(255,255,255,0.9);
+    border:1px solid rgba(255,255,255,0.7);
+    position:relative;
+    overflow:hidden;
+  }
+  .glass-card::before{
+    content:"";
+    position:absolute;
+    top:0;left:0;right:0;height:50%;
+    background:var(--gloss);
+    pointer-events:none;
+    border-radius:30px 30px 50% 50% / 30px 30px 20px 20px;
+  }
+
+  .hero-card{
+    padding:40px 26px 34px;
+    text-align:center;
+  }
+
+  .bouquet{
+    font-size:54px;
+    display:inline-block;
+    margin-bottom:6px;
+    animation:sway 3.5s ease-in-out infinite;
+    filter:drop-shadow(0 6px 10px rgba(224,70,110,0.3));
+  }
+  @keyframes sway{
+    0%,100%{transform:rotate(-8deg) scale(1);}
+    50%{transform:rotate(8deg) scale(1.05);}
+  }
+
+  .hero-card h1{
+    font-size:27px;
+    margin:8px 0 6px;
+    font-weight:800;
+    letter-spacing:-0.4px;
+  }
+  .hero-card p{
+    font-size:15px;
+    line-height:1.6;
+    color:var(--plum);
+    opacity:0.88;
+    margin:0 auto;
+    max-width:340px;
+  }
+  .name-highlight{color:var(--deep-rose);font-weight:800;}
+
+  .hero-tap-hint{
+    margin-top:16px;
+    font-size:11.5px;
+    opacity:0.5;
+    animation:pulse-hint 2s ease-in-out infinite;
+  }
+  @keyframes pulse-hint{0%,100%{opacity:0.35;}50%{opacity:0.75;}}
+
+  .section-title{
+    margin:30px 4px 12px;
+    font-size:19px;
+    font-weight:800;
+    color:var(--deep-rose);
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+
+  .card-group{padding:20px;}
+
+  /* ---------- glossy iOS buttons ---------- */
+  .ios-btn{
+    border:none;
+    cursor:pointer;
+    position:relative;
+    overflow:hidden;
+    font-family:inherit;
+    transition:transform 0.12s ease, box-shadow 0.12s ease, filter 0.12s ease;
+  }
+  .ios-btn::after{
+    content:"";
+    position:absolute;
+    top:0;left:0;right:0;height:55%;
+    background:linear-gradient(180deg, rgba(255,255,255,0.55), rgba(255,255,255,0) 100%);
+    pointer-events:none;
+  }
+  .ios-btn:active{transform:scale(0.94);filter:brightness(0.97);}
+
+  /* ---------- love meter ---------- */
+  .love-meter-wrap{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:14px;
+  }
+  .meter-ring-wrap{
+    position:relative;
+    width:150px;height:150px;
+  }
+  .meter-ring-wrap svg{
+    transform:rotate(-90deg);
+    width:150px;height:150px;
+    filter:drop-shadow(0 4px 10px rgba(224,70,110,0.3));
+  }
+  .meter-ring-bg{fill:none;stroke:rgba(224,70,110,0.12);stroke-width:12;}
+  .meter-ring-fill{
+    fill:none;stroke:url(#roseGrad);stroke-width:12;
+    stroke-linecap:round;
+    stroke-dasharray:408;
+    stroke-dashoffset:408;
+    transition:stroke-dashoffset 0.4s cubic-bezier(.3,1.4,.5,1);
+  }
+  .meter-center{
+    position:absolute;inset:0;
+    display:flex;flex-direction:column;
+    align-items:center;justify-content:center;
+  }
+  .meter-heart{
+    font-size:34px;
+    animation:none;
+  }
+  .meter-heart.bump{animation:heart-bump 0.35s ease;}
+  @keyframes heart-bump{
+    0%{transform:scale(1);}
+    40%{transform:scale(1.4);}
+    100%{transform:scale(1);}
+  }
+  .meter-percent{font-size:14px;font-weight:800;color:var(--deep-rose);margin-top:2px;}
+
+  .tap-heart-btn{
+    background:linear-gradient(135deg,#ff9eb8,var(--deep-rose));
+    color:#fff;
+    border-radius:22px;
+    padding:15px 26px;
+    font-size:15px;
+    font-weight:700;
+    box-shadow:0 8px 20px rgba(224,70,110,0.4);
+  }
+  .meter-hint{font-size:12px;opacity:0.6;text-align:center;}
+
+  /* ---------- music player ---------- */
+  .player{display:flex;align-items:center;gap:14px;}
+  .art{
+    width:66px;height:66px;
+    border-radius:18px;
+    background:linear-gradient(135deg,#ffa6c1,#ff6f91 55%,var(--deep-rose));
+    display:flex;align-items:center;justify-content:center;
+    font-size:28px;flex-shrink:0;
+    box-shadow:0 8px 18px rgba(255,111,145,0.45), inset 0 2px 4px rgba(255,255,255,0.5);
+    animation:spin 8s linear infinite paused;
+    position:relative;
+  }
+  .art.playing{animation-play-state:running;}
+  @keyframes spin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+
+  .track-info{flex:1;min-width:0;}
+  .track-title{font-weight:800;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .track-artist{font-size:13px;color:var(--deep-rose);opacity:0.85;margin-top:2px;}
+
+  .play-btn{
+    width:48px;height:48px;border-radius:50%;
+    background:linear-gradient(135deg,var(--rose),var(--deep-rose));
+    color:#fff;font-size:18px;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 6px 16px rgba(224,70,110,0.45), inset 0 2px 3px rgba(255,255,255,0.5);
+    flex-shrink:0;
+  }
+
+  .player-extra{display:flex;justify-content:center;gap:22px;margin-top:14px;}
+  .mini-ios-btn{
+    background:rgba(224,70,110,0.1);
+    color:var(--deep-rose);
+    width:38px;height:38px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-size:15px;
+  }
+  .mini-ios-btn.liked{background:linear-gradient(135deg,#ff9eb8,var(--deep-rose));color:#fff;}
+
+  .progress-wrap{margin-top:16px;}
+  .progress-bar{height:6px;background:rgba(224,70,110,0.15);border-radius:10px;overflow:hidden;cursor:pointer;}
+  .progress-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--petal),var(--deep-rose));border-radius:10px;transition:width 0.15s linear;}
+  .time-row{display:flex;justify-content:space-between;font-size:11px;opacity:0.6;margin-top:6px;}
+
+  .song-note{
+    margin-top:14px;font-size:12.5px;line-height:1.5;opacity:0.7;
+    background:rgba(255,182,201,0.28);border-radius:14px;padding:10px 12px;
+  }
+
+  /* ---------- flip cards ---------- */
+  .flip-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .flip-card{aspect-ratio:1/0.95;perspective:1000px;cursor:pointer;}
+  .flip-inner{
+    position:relative;width:100%;height:100%;
+    transition:transform 0.6s cubic-bezier(.4,.2,.2,1);
+    transform-style:preserve-3d;
+  }
+  .flip-card.flipped .flip-inner{transform:rotateY(180deg);}
+  .flip-front,.flip-back{
+    position:absolute;inset:0;backface-visibility:hidden;
+    border-radius:20px;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;text-align:center;padding:10px;
+  }
+  .flip-front{
+    background:linear-gradient(135deg,#ffe0e9,#ffb6c9);
+    box-shadow:0 6px 16px rgba(255,111,145,0.32), inset 0 2px 3px rgba(255,255,255,0.7);
+  }
+  .flip-front span{font-size:30px;}
+  .flip-front small{font-size:11px;margin-top:6px;opacity:0.75;font-weight:700;}
+  .flip-back{
+    background:linear-gradient(135deg,var(--rose),var(--deep-rose));
+    color:#fff;transform:rotateY(180deg);
+    font-size:12.5px;line-height:1.4;font-weight:600;
+    box-shadow:inset 0 2px 3px rgba(255,255,255,0.25);
+  }
+
+  /* ---------- memory garden ---------- */
+  .garden{
+    position:relative;
+    min-height:230px;
+    background:linear-gradient(180deg, rgba(255,214,227,0.4), rgba(255,182,201,0.25));
+    border-radius:22px;
+    overflow:hidden;
+  }
+  .garden-flower{
+    position:absolute;
+    font-size:30px;
+    cursor:pointer;
+    transition:transform 0.2s ease;
+    filter:drop-shadow(0 3px 5px rgba(224,70,110,0.3));
+  }
+  .garden-flower:active{transform:scale(0.85);}
+  .garden-flower.picked{
+    animation:pick-pop 0.5s ease forwards;
+    pointer-events:none;
+  }
+  @keyframes pick-pop{
+    0%{transform:scale(1);opacity:1;}
+    60%{transform:scale(1.5) rotate(20deg);opacity:1;}
+    100%{transform:scale(0) rotate(60deg);opacity:0;}
+  }
+  .garden-hint{
+    text-align:center;font-size:12px;opacity:0.6;margin-top:10px;
+  }
+  .memory-toast{
+    position:absolute;
+    left:50%;bottom:12px;
+    transform:translateX(-50%) translateY(20px);
+    background:rgba(255,255,255,0.92);
+    backdrop-filter:blur(10px);
+    color:var(--plum);
+    padding:10px 16px;
+    border-radius:16px;
+    font-size:12.5px;
+    font-weight:600;
+    box-shadow:0 6px 16px rgba(224,70,110,0.25);
+    max-width:88%;
+    text-align:center;
+    opacity:0;
+    transition:opacity 0.35s ease, transform 0.35s ease;
+    pointer-events:none;
+  }
+  .memory-toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+  .garden-progress{
+    text-align:center;font-size:11.5px;opacity:0.55;margin-top:6px;
+  }
+
+  /* ---------- compliment generator ---------- */
+  .compliment-stage{
+    min-height:96px;
+    display:flex;align-items:center;justify-content:center;
+    text-align:center;
+    background:linear-gradient(135deg, rgba(255,182,201,0.25), rgba(255,111,145,0.15));
+    border-radius:18px;
+    padding:16px;
+    position:relative;
+    overflow:hidden;
+  }
+  .compliment-text{
+    font-size:14.5px;font-weight:700;color:var(--deep-rose);
+    animation:compliment-in 0.4s ease;
+  }
+  @keyframes compliment-in{
+    0%{opacity:0;transform:translateY(10px) scale(0.95);}
+    100%{opacity:1;transform:translateY(0) scale(1);}
+  }
+  .compliment-btn{
+    width:100%;margin-top:14px;
+    border-radius:18px;padding:15px;
+    background:linear-gradient(135deg,var(--rose),var(--deep-rose));
+    color:#fff;font-size:14.5px;font-weight:700;
+    box-shadow:0 8px 18px rgba(224,70,110,0.4), inset 0 2px 3px rgba(255,255,255,0.4);
+    display:flex;align-items:center;justify-content:center;gap:8px;
+  }
+
+  /* ---------- letter ---------- */
+  .letter-toggle{
+    width:100%;border-radius:20px;padding:17px;
+    background:linear-gradient(135deg,var(--rose),var(--deep-rose));
+    color:#fff;font-size:15px;font-weight:800;
+    box-shadow:0 8px 20px rgba(224,70,110,0.4), inset 0 2px 3px rgba(255,255,255,0.4);
+    display:flex;align-items:center;justify-content:center;gap:8px;
+  }
+  .letter-content{
+    max-height:0;overflow:hidden;
+    transition:max-height 0.5s ease, margin-top 0.5s ease;
+    font-size:14.5px;line-height:1.75;
+  }
+  .letter-content.open{max-height:700px;margin-top:16px;}
+  .letter-content p{margin:0 0 12px;}
+  .signature{text-align:right;font-style:italic;color:var(--deep-rose);font-weight:800;margin-top:10px !important;}
+
+  /* ---------- plant a flower game ---------- */
+  .plant-garden{
+    min-height:100px;
+    display:flex;flex-wrap:wrap;
+    align-items:flex-end;
+    gap:6px;
+    padding:10px 6px 4px;
+    background:linear-gradient(180deg, transparent, rgba(255,182,201,0.3));
+    border-radius:16px;
+  }
+  .planted-flower{
+    font-size:26px;
+    animation:grow-in 0.5s cubic-bezier(.3,1.6,.5,1);
+  }
+  @keyframes grow-in{
+    0%{transform:scale(0) translateY(20px);opacity:0;}
+    100%{transform:scale(1) translateY(0);opacity:1;}
+  }
+  .plant-btn{
+    width:100%;margin-top:14px;border-radius:18px;padding:15px;
+    background:linear-gradient(135deg,#ffd6e3,#ff9eb8);
+    color:var(--deep-rose);font-size:14.5px;font-weight:800;
+    box-shadow:0 6px 16px rgba(255,111,145,0.3), inset 0 2px 3px rgba(255,255,255,0.6);
+  }
+  .plant-count{text-align:center;font-size:12px;opacity:0.6;margin-top:8px;}
+
+  /* ---------- sorry slider ---------- */
+  .slider-wrap{padding:6px 4px;}
+  input[type=range]{
+    width:100%;-webkit-appearance:none;height:9px;border-radius:10px;
+    background:linear-gradient(90deg,#ffd6e3,var(--deep-rose));
+    outline:none;
+    box-shadow:inset 0 1px 2px rgba(224,70,110,0.2);
+  }
+  input[type=range]::-webkit-slider-thumb{
+    -webkit-appearance:none;width:28px;height:28px;border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, #fff, #ffe0e9 70%);
+    border:3px solid var(--deep-rose);
+    box-shadow:0 4px 10px rgba(224,70,110,0.45);
+    cursor:pointer;
+  }
+  .slider-label{text-align:center;margin-top:12px;font-size:14px;font-weight:800;color:var(--deep-rose);min-height:20px;}
+
+  /* ---------- quiz ---------- */
+  .quiz-q{font-size:14.5px;font-weight:700;margin-bottom:14px;text-align:center;}
+  .quiz-options{display:flex;flex-direction:column;gap:10px;}
+  .quiz-opt{
+    border-radius:16px;padding:13px 16px;text-align:left;
+    background:rgba(255,182,201,0.25);
+    color:var(--plum);font-size:13.5px;font-weight:600;
+    border:2px solid transparent;
+  }
+  .quiz-opt.correct{
+    background:linear-gradient(135deg,#c8f7d8,#9be8b5);
+    border-color:#5cc789;color:#1c5e35;
+  }
+  .quiz-opt.wrong{
+    background:linear-gradient(135deg,#ffd6d6,#ffb3b3);
+    border-color:#e06666;color:#7a1f1f;
+  }
+  .quiz-feedback{text-align:center;font-size:12.5px;margin-top:12px;min-height:16px;font-weight:700;color:var(--deep-rose);}
+
+  /* ---------- final ---------- */
+  .final-card{text-align:center;padding:38px 20px 42px;}
+  .final-card .bouquet{font-size:46px;}
+  .final-card h2{font-size:21px;margin:10px 0 8px;}
+  .final-card p{font-size:14.5px;opacity:0.85;margin:0 0 26px;line-height:1.55;}
+
+  .decision-zone{
+    position:relative;min-height:150px;
+    display:flex;align-items:center;justify-content:center;
+    gap:16px;flex-wrap:nowrap;
+  }
+
+  .yes-btn,.no-btn{
+    border-radius:26px;padding:17px 32px;font-size:16px;font-weight:800;
+  }
+  .yes-btn{
+    background:linear-gradient(135deg,#ffa6c1,var(--deep-rose));
+    color:#fff;
+    box-shadow:0 10px 24px rgba(224,70,110,0.45), inset 0 2px 3px rgba(255,255,255,0.5);
+  }
+  .yes-btn.grown{padding:22px 46px;font-size:20px;}
+
+  .no-btn{
+    background:var(--glass-strong);
+    color:var(--deep-rose);
+    border:2px solid var(--petal);
+    position:relative;z-index:5;
+    box-shadow:0 6px 16px rgba(224,70,110,0.2);
+  }
+  .no-btn.fixed-flee{position:fixed;z-index:999;}
+
+  .success-screen{display:none;text-align:center;animation:pop 0.5s ease;}
+  .success-screen.show{display:block;}
+  @keyframes pop{
+    0%{transform:scale(0.7);opacity:0;}
+    60%{transform:scale(1.08);opacity:1;}
+    100%{transform:scale(1);}
+  }
+  .success-screen .big-heart{font-size:66px;animation:beat 1s ease-in-out infinite;}
+  @keyframes beat{0%,100%{transform:scale(1);}50%{transform:scale(1.15);}}
+  .success-screen h2{font-size:23px;color:var(--deep-rose);margin:14px 0 8px;}
+  .success-screen p{font-size:14.5px;opacity:0.88;max-width:320px;margin:0 auto;line-height:1.6;}
+  .success-flowers{font-size:22px;margin-top:16px;letter-spacing:6px;}
+
+  .no-counter{text-align:center;font-size:12px;opacity:0.55;margin-top:14px;min-height:16px;}
+
+  footer{text-align:center;font-size:12px;opacity:0.5;margin-top:32px;padding-bottom:10px;}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important;transition:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<div class="sparkle-layer" id="sparkleLayer"></div>
+
+<div class="app">
+  <div class="statusbar">a little something for you 🌷✨</div>
+  <div class="progress-dots" id="progressDots"></div>
+
+  <div class="glass-card hero-card" id="heroCard">
+    <span class="bouquet">💐</span>
+    <h1>I'm sorry, <span class="name-highlight">love</span></h1>
+    <p>I know I hurt you, and I've been thinking about it ever since. You mean more to me than my pride ever will — so here's a whole little world I made just to say it properly. 🌸</p>
+    <div class="hero-tap-hint">✨ tap the bouquet ✨</div>
+  </div>
+
+  <div class="section-title">💗 how much do you love me back?</div>
+  <div class="glass-card card-group">
+    <div class="love-meter-wrap">
+      <div class="meter-ring-wrap">
+        <svg viewBox="0 0 150 150">
+          <defs>
+            <linearGradient id="roseGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#ff9eb8"/>
+              <stop offset="100%" stop-color="#e0466e"/>
+            </linearGradient>
+          </defs>
+          <circle class="meter-ring-bg" cx="75" cy="75" r="65"></circle>
+          <circle class="meter-ring-fill" id="meterRing" cx="75" cy="75" r="65"></circle>
+        </svg>
+        <div class="meter-center">
+          <div class="meter-heart" id="meterHeart">🤍</div>
+          <div class="meter-percent" id="meterPercent">0%</div>
+        </div>
+      </div>
+      <button class="tap-heart-btn ios-btn" id="tapHeartBtn">Tap to fill it up 💓</button>
+      <div class="meter-hint">every tap = a little more forgiveness</div>
+    </div>
+  </div>
+
+  <div class="section-title">🎵 a song for you</div>
+  <div class="glass-card card-group">
+    <div class="player">
+      <div class="art" id="albumArt">🎧</div>
+      <div class="track-info">
+        <div class="track-title">Dagabaz Re</div>
+        <div class="track-artist">Rahat Fateh Ali Khan</div>
+      </div>
+      <button class="play-btn ios-btn" id="playBtn" aria-label="Play song">▶</button>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-bar" id="progressBar"><div class="progress-fill" id="progressFill"></div></div>
+      <div class="time-row"><span id="curTime">0:00</span><span id="durTime">0:00</span></div>
+    </div>
+    <div class="player-extra">
+      <button class="mini-ios-btn ios-btn" id="likeBtn" aria-label="Like">🤍</button>
+      <button class="mini-ios-btn ios-btn" id="repeatBtn" aria-label="Repeat">🔁</button>
+      <button class="mini-ios-btn ios-btn" id="volBtn" aria-label="Volume">🔊</button>
+    </div>
+    <audio id="audio" src="song.mp3" preload="metadata"></audio>
+    <div class="song-note">🎶 this one's playing in my head every time I think of you. Add <b>song.mp3</b> next to this file (rename your Dagabaz Re file to that) and the player above brings it to life.</div>
+  </div>
+
+  <div class="section-title">🌷 reasons I'm sorry</div>
+  <div class="glass-card card-group">
+    <div class="flip-grid" id="flipGrid">
+      <div class="flip-card"><div class="flip-inner">
+        <div class="flip-front"><span>🙈</span><small>my words</small></div>
+        <div class="flip-back">I said things I didn't mean, and I wish I could take them back.</div>
+      </div></div>
+      <div class="flip-card"><div class="flip-inner">
+        <div class="flip-front"><span>⏳</span><small>my silence</small></div>
+        <div class="flip-back">I went quiet when you needed me to talk. That wasn't fair to you.</div>
+      </div></div>
+      <div class="flip-card"><div class="flip-inner">
+        <div class="flip-front"><span>🥺</span><small>your feelings</small></div>
+        <div class="flip-back">I didn't listen closely enough to how you actually felt.</div>
+      </div></div>
+      <div class="flip-card"><div class="flip-inner">
+        <div class="flip-front"><span>💔</span><small>the hurt</small></div>
+        <div class="flip-back">Seeing you upset because of me is the last thing I ever want.</div>
+      </div></div>
+      <div class="flip-card"><div class="flip-inner">
+        <div class="flip-front"><span>🙊</span><small>my pride</small></div>
+        <div class="flip-back">I let being "right" matter more than making you feel loved. Never again.</div>
+      </div></div>
+      <div class="flip-card"><div class="flip-inner">
+        <div class="flip-front"><span>🕊️</span><small>the delay</small></div>
+        <div class="flip-back">I should've said sorry sooner instead of letting it sit between us.</div>
+      </div></div>
+    </div>
+    <div style="text-align:center;font-size:11.5px;opacity:0.55;margin-top:12px;">tap each card 🌸</div>
+  </div>
+
+  <div class="section-title">🌼 our memory garden</div>
+  <div class="glass-card card-group">
+    <div class="garden" id="garden">
+      <div class="memory-toast" id="memoryToast"></div>
+    </div>
+    <div class="garden-hint">tap the flowers to pick them 🌷</div>
+    <div class="garden-progress" id="gardenProgress">0 / 8 memories found</div>
+  </div>
+
+  <div class="section-title">😊 reasons to smile</div>
+  <div class="glass-card card-group">
+    <div class="compliment-stage">
+      <div class="compliment-text" id="complimentText">tap below for a little reminder 🤍</div>
+    </div>
+    <button class="compliment-btn ios-btn" id="complimentBtn">Give me a reason to smile ✨</button>
+  </div>
+
+  <div class="section-title">💌 a little letter</div>
+  <div class="glass-card card-group">
+    <button class="letter-toggle ios-btn" id="letterToggle">Open my letter to you 💗</button>
+    <div class="letter-content" id="letterContent">
+      <p>Hey you,</p>
+      <p>I've rewritten this a few times in my head, trying to find the right words. But I think the simplest truth is this: I messed up, and you deserved better than that.</p>
+      <p>You are one of the most important people in my life, and I never want an argument or my own mistake to make you feel small or unloved. You are seen, you are valued, and you are so deeply cared for — even in the moments I don't show it well.</p>
+      <p>I'm not asking you to forget it happened. I'm just asking for the chance to do better, because you're worth doing better for. 🌷</p>
+      <p class="signature">— always yours</p>
+    </div>
+  </div>
+
+  <div class="section-title">🌱 plant something sweet</div>
+  <div class="glass-card card-group">
+    <div class="plant-garden" id="plantGarden"></div>
+    <button class="plant-btn ios-btn" id="plantBtn">Plant a flower for you 🌱</button>
+    <div class="plant-count" id="plantCount">0 flowers planted, and counting 🌸</div>
+  </div>
+
+  <div class="section-title">💭 do you know us?</div>
+  <div class="glass-card card-group" id="quizCard">
+    <div class="quiz-q" id="quizQ">What matters most right now?</div>
+    <div class="quiz-options" id="quizOptions">
+      <button class="quiz-opt ios-btn" data-correct="false">Winning the argument</button>
+      <button class="quiz-opt ios-btn" data-correct="true">Making sure you feel loved</button>
+      <button class="quiz-opt ios-btn" data-correct="false">Being right</button>
+    </div>
+    <div class="quiz-feedback" id="quizFeedback"></div>
+  </div>
+
+  <div class="section-title">📏 how sorry am I?</div>
+  <div class="glass-card card-group">
+    <div class="slider-wrap">
+      <input type="range" min="0" max="100" value="0" id="sorrySlider">
+      <div class="slider-label" id="sorryLabel">slide to find out →</div>
+    </div>
+  </div>
+
+  <div class="glass-card final-card">
+    <span class="bouquet">🌹</span>
+    <h2>so... have I been forgiven?</h2>
+    <p>take your time. I'll wait right here. 🌷</p>
+
+    <div class="decision-zone" id="decisionZone">
+      <button class="yes-btn ios-btn" id="yesBtn">Yes, I forgive you 🤍</button>
+      <button class="no-btn ios-btn" id="noBtn">Not yet</button>
+    </div>
+
+    <div class="no-counter" id="noCounter"></div>
+
+    <div class="success-screen" id="successScreen">
+      <div class="big-heart">💗</div>
+      <h2>thank you for forgiving me</h2>
+      <p>I promise to hold onto this. You make me want to be better, every single day. I love you, always.</p>
+      <div class="success-flowers">🌸🌷🌹💐🌺</div>
+    </div>
+  </div>
+
+  <footer>made with 🌷 and a whole lot of sorry</footer>
+</div>
+
+<script>
+  /* ---------------- floating flowers + sparkles ---------------- */
+  const flowerEmoji = ['🌸','🌷','🌹','💮','🌺','💐','🥀','🏵️','🌼','❀','💕'];
+  for(let i=0;i<26;i++){
+    const p = document.createElement('div');
+    p.className='petal';
+    p.textContent = flowerEmoji[Math.floor(Math.random()*flowerEmoji.length)];
+    p.style.left = Math.random()*100+'vw';
+    p.style.animationDuration = (7+Math.random()*11)+'s';
+    p.style.animationDelay = (Math.random()*10)+'s';
+    p.style.fontSize = (14+Math.random()*16)+'px';
+    document.body.appendChild(p);
+  }
+  const sparkleLayer = document.getElementById('sparkleLayer');
+  const sparkleEmoji = ['✨','⭐️','💫'];
+  for(let i=0;i<14;i++){
+    const s = document.createElement('div');
+    s.className='sparkle';
+    s.textContent = sparkleEmoji[Math.floor(Math.random()*sparkleEmoji.length)];
+    s.style.left = Math.random()*100+'vw';
+    s.style.top = Math.random()*100+'vh';
+    s.style.animationDelay = (Math.random()*3)+'s';
+    sparkleLayer.appendChild(s);
+  }
+
+  /* ---------------- progress dots (based on scroll) ---------------- */
+  const sections = document.querySelectorAll('.section-title, .hero-card');
+  const dotsWrap = document.getElementById('progressDots');
+  sections.forEach(()=>{
+    const d = document.createElement('span');
+    dotsWrap.appendChild(d);
+  });
+  function updateDots(){
+    const dots = dotsWrap.children;
+    let activeIndex = 0;
+    sections.forEach((sec,i)=>{
+      const rect = sec.getBoundingClientRect();
+      if(rect.top < window.innerHeight*0.5) activeIndex = i;
+    });
+    Array.from(dots).forEach((d,i)=> d.classList.toggle('active', i===activeIndex));
+  }
+  window.addEventListener('scroll', updateDots, {passive:true});
+  updateDots();
+
+  /* ---------------- tiny synthesized chime (no copyrighted audio) ---------------- */
+  let audioCtx;
+  function chime(freq=880, dur=0.12){
+    try{
+      audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+      const o = audioCtx.createOscillator();
+      const g = audioCtx.createGain();
+      o.type='sine';
+      o.frequency.value = freq;
+      g.gain.setValueAtTime(0.0001, audioCtx.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.06, audioCtx.currentTime+0.01);
+      g.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime+dur);
+      o.connect(g);g.connect(audioCtx.destination);
+      o.start();o.stop(audioCtx.currentTime+dur);
+    }catch(e){}
+  }
+  function haptic(ms=15){
+    if(navigator.vibrate) navigator.vibrate(ms);
+  }
+
+  /* ---------------- hero tap = confetti burst ---------------- */
+  const heroCard = document.getElementById('heroCard');
+  heroCard.addEventListener('click', ()=>{
+    chime(1046);haptic(10);
+    burstFlowers(heroCard.getBoundingClientRect(), 10);
+  });
+
+  function burstFlowers(rect, count){
+    for(let i=0;i<count;i++){
+      const f = document.createElement('div');
+      f.className='petal';
+      f.textContent = flowerEmoji[Math.floor(Math.random()*flowerEmoji.length)];
+      f.style.left = (rect.left + rect.width/2 + (Math.random()*160-80))+'px';
+      f.style.top = (rect.top + rect.height/2)+'px';
+      f.style.animationDuration = (2.5+Math.random()*2)+'s';
+      f.style.animationDelay='0s';
+      f.style.fontSize = (16+Math.random()*14)+'px';
+      document.body.appendChild(f);
+      setTimeout(()=>f.remove(), 5000);
+    }
+  }
+
+  /* ---------------- love meter ---------------- */
+  const meterRing = document.getElementById('meterRing');
+  const meterHeart = document.getElementById('meterHeart');
+  const meterPercent = document.getElementById('meterPercent');
+  const tapHeartBtn = document.getElementById('tapHeartBtn');
+  const heartsProgression = ['🤍','💗','💕','💞','💖','😍'];
+  let meterValue = 0;
+  const CIRC = 2*Math.PI*65;
+  tapHeartBtn.addEventListener('click', ()=>{
+    meterValue = Math.min(100, meterValue + 8 + Math.floor(Math.random()*5));
+    const offset = CIRC - (meterValue/100)*CIRC;
+    meterRing.style.strokeDashoffset = offset;
+    meterPercent.textContent = meterValue+'%';
+    const idx = Math.min(heartsProgression.length-1, Math.floor(meterValue/20));
+    meterHeart.textContent = heartsProgression[idx];
+    meterHeart.classList.remove('bump');
+    void meterHeart.offsetWidth;
+    meterHeart.classList.add('bump');
+    chime(600+meterValue*4, 0.08);
+    haptic(8);
+    if(meterValue>=100){
+      tapHeartBtn.textContent = 'maxed out with love 💗';
+    }
+  });
+
+  /* ---------------- music player ---------------- */
+  const audio = document.getElementById('audio');
+  const playBtn = document.getElementById('playBtn');
+  const art = document.getElementById('albumArt');
+  const progressFill = document.getElementById('progressFill');
+  const progressBar = document.getElementById('progressBar');
+  const curTime = document.getElementById('curTime');
+  const durTime = document.getElementById('durTime');
+  const likeBtn = document.getElementById('likeBtn');
+  const repeatBtn = document.getElementById('repeatBtn');
+  const volBtn = document.getElementById('volBtn');
+
+  function fmt(t){
+    if(isNaN(t)) return '0:00';
+    const m = Math.floor(t/60);
+    const s = Math.floor(t%60).toString().padStart(2,'0');
+    return m+':'+s;
+  }
+  playBtn.addEventListener('click', ()=>{
+    haptic(10);
+    if(audio.paused){
+      audio.play().catch(()=>{
+        playBtn.textContent='▶';
+        alert("Add your 'song.mp3' file next to this HTML file so it can play 🎵");
+      });
+      playBtn.textContent='⏸';art.classList.add('playing');
+    } else {
+      audio.pause();playBtn.textContent='▶';art.classList.remove('playing');
+    }
+  });
+  audio.addEventListener('timeupdate', ()=>{
+    if(audio.duration){
+      progressFill.style.width = (audio.currentTime/audio.duration*100)+'%';
+      curTime.textContent = fmt(audio.currentTime);
+    }
+  });
+  audio.addEventListener('loadedmetadata', ()=> durTime.textContent = fmt(audio.duration));
+  audio.addEventListener('ended', ()=>{ playBtn.textContent='▶';art.classList.remove('playing'); });
+  progressBar.addEventListener('click', (e)=>{
+    if(!audio.duration) return;
+    const rect = progressBar.getBoundingClientRect();
+    const pct = (e.clientX-rect.left)/rect.width;
+    audio.currentTime = pct*audio.duration;
+  });
+  let liked=false;
+  likeBtn.addEventListener('click', ()=>{
+    liked=!liked;
+    likeBtn.textContent = liked ? '💗' : '🤍';
+    likeBtn.classList.toggle('liked', liked);
+    chime(liked?1200:500,0.1);haptic(10);
+  });
+  let repeatOn=false;
+  repeatBtn.addEventListener('click', ()=>{
+    repeatOn=!repeatOn;
+    audio.loop = repeatOn;
+    repeatBtn.classList.toggle('liked', repeatOn);
+    haptic(8);
+  });
+  let muted=false;
+  volBtn.addEventListener('click', ()=>{
+    muted=!muted;
+    audio.muted=muted;
+    volBtn.textContent = muted ? '🔇' : '🔊';
+    haptic(8);
+  });
+
+  /* ---------------- flip cards ---------------- */
+  document.querySelectorAll('.flip-card').forEach(card=>{
+    card.addEventListener('click', ()=>{
+      card.classList.toggle('flipped');
+      chime(card.classList.contains('flipped')?900:700,0.08);
+      haptic(8);
+    });
+  });
+
+  /* ---------------- memory garden ---------------- */
+  const garden = document.getElementById('garden');
+  const memoryToast = document.getElementById('memoryToast');
+  const gardenProgress = document.getElementById('gardenProgress');
+  const memories = [
+    "Remember our first date? I was so nervous I forgot my own order. 🌸",
+    "You laughed so hard once you snorted, and I fell for you even harder. 💕",
+    "That rainy day we didn't mind getting soaked because we were together. ☔️🌷",
+    "The playlist you made me is still my most played. 🎶",
+    "You remembered my coffee order after just once. That's when I knew. ☕️💗",
+    "Late night calls that turned into sunrise. Never regretted a single one. 🌅",
+    "You checking in on my bad days without me even asking. 🥹",
+    "Every single time you've chosen us, even when it was hard. 🌹"
+  ];
+  let pickedCount = 0;
+  function layoutGarden(){
+    garden.querySelectorAll('.garden-flower').forEach(f=>f.remove());
+    const gw = garden.clientWidth, gh = garden.clientHeight;
+    memories.forEach((mem, i)=>{
+      const f = document.createElement('div');
+      f.className='garden-flower';
+      f.textContent = flowerEmoji[i % flowerEmoji.length];
+      const left = 10 + Math.random()*(gw-50);
+      const top = 10 + Math.random()*(gh-50);
+      f.style.left = left+'px';
+      f.style.top = top+'px';
+      f.dataset.memory = mem;
+      f.addEventListener('click', onPickFlower);
+      garden.appendChild(f);
+    });
+  }
+  function onPickFlower(e){
+    const f = e.currentTarget;
+    if(f.classList.contains('picked')) return;
+    f.classList.add('picked');
+    pickedCount++;
+    memoryToast.textContent = f.dataset.memory;
+    memoryToast.classList.add('show');
+    clearTimeout(window._toastTimer);
+    window._toastTimer = setTimeout(()=> memoryToast.classList.remove('show'), 3200);
+    gardenProgress.textContent = pickedCount+' / '+memories.length+' memories found';
+    chime(1000+pickedCount*40,0.1);
+    haptic(10);
+  }
+  window.addEventListener('load', layoutGarden);
+  window.addEventListener('resize', ()=>{ if(pickedCount===0) layoutGarden(); });
+
+  /* ---------------- compliment generator ---------------- */
+  const complimentText = document.getElementById('complimentText');
+  const complimentBtn = document.getElementById('complimentBtn');
+  const compliments = [
+    "Your smile fixes my whole day, even the bad ones. 😊",
+    "You make ordinary moments feel special just by being in them. 🌸",
+    "I'm a better person for having you in my life. 🤍",
+    "Your kindness is honestly one of my favorite things about you. 🌷",
+    "You're the calm in every storm I've ever been through. 🌊💗",
+    "I still get a little happy flutter when I see your name pop up. 💌",
+    "Your laugh is quite possibly my favorite sound in the world. 🎶",
+    "You are so much stronger and more wonderful than you give yourself credit for. 🌹",
+    "Being loved by you is the best thing that's happened to me. 💖"
+  ];
+  let lastComplimentIdx = -1;
+  complimentBtn.addEventListener('click', ()=>{
+    let idx;
+    do{ idx = Math.floor(Math.random()*compliments.length); }while(idx===lastComplimentIdx && compliments.length>1);
+    lastComplimentIdx = idx;
+    complimentText.style.animation='none';
+    void complimentText.offsetWidth;
+    complimentText.style.animation='compliment-in 0.4s ease';
+    complimentText.textContent = compliments[idx];
+    chime(950,0.1);haptic(10);
+  });
+
+  /* ---------------- letter ---------------- */
+  const letterToggle = document.getElementById('letterToggle');
+  const letterContent = document.getElementById('letterContent');
+  letterToggle.addEventListener('click', ()=>{
+    const isOpen = letterContent.classList.toggle('open');
+    letterToggle.textContent = isOpen ? 'Close my letter 💗' : 'Open my letter to you 💗';
+    chime(isOpen?880:660,0.1);haptic(10);
+  });
+
+  /* ---------------- plant a flower game ---------------- */
+  const plantGarden = document.getElementById('plantGarden');
+  const plantBtn = document.getElementById('plantBtn');
+  const plantCount = document.getElementById('plantCount');
+  const plantEmoji = ['🌱','🌷','🌸','🌹','🌼','🌻','💐'];
+  let plants = 0;
+  plantBtn.addEventListener('click', ()=>{
+    plants++;
+    const f = document.createElement('div');
+    f.className='planted-flower';
+    f.textContent = plantEmoji[Math.min(plants-1, plantEmoji.length-1)] || '🌸';
+    if(plants>plantEmoji.length) f.textContent = flowerEmoji[Math.floor(Math.random()*flowerEmoji.length)];
+    plantGarden.appendChild(f);
+    plantCount.textContent = plants+' flower'+(plants===1?'':'s')+' planted, and counting 🌸';
+    chime(700+plants*15,0.09);haptic(8);
+    plantGarden.scrollTop = plantGarden.scrollHeight;
+  });
+
+  /* ---------------- quiz ---------------- */
+  const quizOptions = document.getElementById('quizOptions');
+  const quizFeedback = document.getElementById('quizFeedback');
+  quizOptions.querySelectorAll('.quiz-opt').forEach(opt=>{
+    opt.addEventListener('click', ()=>{
+      const correct = opt.dataset.correct === 'true';
+      quizOptions.querySelectorAll('.quiz-opt').forEach(o=>{
+        o.disabled = true;
+        if(o.dataset.correct==='true') o.classList.add('correct');
+      });
+      if(!correct) opt.classList.add('wrong');
+      quizFeedback.textContent = correct ? "exactly. that's all I want. 💗" : "close — it's always about making you feel loved 🤍";
+      chime(correct?1200:400, 0.12);haptic(correct?12:20);
+    });
+  });
+
+  /* ---------------- sorry slider ---------------- */
+  const slider = document.getElementById('sorrySlider');
+  const sorryLabel = document.getElementById('sorryLabel');
+  const labels = [
+    [0,"slide to find out →"],
+    [15,"pretty sorry... 🙁"],
+    [35,"quite sorry 😕"],
+    [55,"really sorry 😔"],
+    [75,"SO sorry 🥺"],
+    [92,"infinitely, endlessly sorry 💗"]
+  ];
+  slider.addEventListener('input', ()=>{
+    const v = parseInt(slider.value);
+    let text = labels[0][1];
+    for(const [threshold,label] of labels) if(v>=threshold) text = label;
+    sorryLabel.textContent = text;
+  });
+
+  /* ---------------- forgiveness buttons ---------------- */
+  const yesBtn = document.getElementById('yesBtn');
+  const noBtn = document.getElementById('noBtn');
+  const decisionZone = document.getElementById('decisionZone');
+  const successScreen = document.getElementById('successScreen');
+  const noCounter = document.getElementById('noCounter');
+
+  const noPhrases = [
+    "Not yet","Nope 🥺","Try again?","Still no 😌","Pretty please?",
+    "Catch me first 🏃‍♀️","One more try?","So close!","Almost 👀","Okay fine..."
+  ];
+  let noClicks = 0;
+  let fled = false;
+
+  function fleeButton(){
+    noClicks++;
+    haptic(20);
+    chime(300,0.1);
+    noCounter.textContent = noClicks < 4 ? '' : `attempt #${noClicks}... the "no" button is getting tired 😅`;
+    yesBtn.classList.add('grown');
+    yesBtn.style.fontSize = (16+Math.min(noClicks,8))+'px';
+    noBtn.textContent = noPhrases[noClicks % noPhrases.length];
+
+    const vw = window.innerWidth, vh = window.innerHeight;
+    const btnW = noBtn.offsetWidth, btnH = noBtn.offsetHeight;
+    const margin = 20;
+    const left = Math.max(margin, Math.random()*(vw-btnW-margin));
+    const top = Math.max(margin, Math.random()*(vh-btnH-margin));
+    if(!fled){ noBtn.classList.add('fixed-flee'); fled = true; }
+    noBtn.style.left = left+'px';
+    noBtn.style.top = top+'px';
+  }
+  noBtn.addEventListener('click', fleeButton);
+  noBtn.addEventListener('mouseenter', ()=>{ if(fled) fleeButton(); });
+  noBtn.addEventListener('touchstart', (e)=>{ e.preventDefault(); fleeButton(); }, {passive:false});
+
+  yesBtn.addEventListener('click', ()=>{
+    decisionZone.style.display='none';
+    noCounter.style.display='none';
+    successScreen.classList.add('show');
+    chime(1318,0.2);haptic([10,30,10,30,20]);
+    for(let i=0;i<32;i++){
+      const p = document.createElement('div');
+      p.className='petal';
+      p.textContent = flowerEmoji[Math.floor(Math.random()*flowerEmoji.length)];
+      p.style.left = Math.random()*100+'vw';
+      p.style.top = '-30px';
+      p.style.animationDuration = (3+Math.random()*3)+'s';
+      p.style.animationDelay = (Math.random()*1.5)+'s';
+      p.style.fontSize = (18+Math.random()*16)+'px';
+      document.body.appendChild(p);
+      setTimeout(()=>p.remove(), 7000);
+    }
+    successScreen.scrollIntoView({behavior:'smooth', block:'center'});
+  });
+</script>
+
+</body>
+</html>
